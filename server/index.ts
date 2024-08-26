@@ -29,10 +29,12 @@ app.use(session({
   }
 }));
 
-// Connect to mongo
-mongoose.connect(process.env.MONGODB_URI as string)
+if (require.main === module) {
+  mongoose.connect(process.env.MONGODB_URI as string)
   .then(() => console.log('Connected to MongoDB'))
   .catch((error) => console.error('MongoDB connection error:', error));
+
+}
 
 // Use auth routes
 app.use('/api/auth', authRoutes);
