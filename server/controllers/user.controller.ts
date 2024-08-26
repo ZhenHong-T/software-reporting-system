@@ -1,6 +1,6 @@
 import express from 'express';
 import { UserModel } from 'server/models';
-import { getVenuesForUser } from './venue.controller';
+import { getVenuesForUser } from './venue.controller.js';
 import { ObjectId } from 'mongodb';
 
 export const getAllUsers = async (req: express.Request, res: express.Response) => {

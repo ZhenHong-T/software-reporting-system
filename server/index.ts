@@ -25,11 +25,11 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     secure: process.env.NODE_ENV === 'production',
-    maxAge: 24 * 60 * 60 * 1000 // 24 hour expiry time
+    maxAge: 24 * 60 * 60 * 1000 // 24 hour session expiry
   }
 }));
 
-// Connect to cloud DB 
+// Connect to mongo
 mongoose.connect(process.env.MONGODB_URI as string)
   .then(() => console.log('Connected to MongoDB'))
   .catch((error) => console.error('MongoDB connection error:', error));
@@ -40,11 +40,15 @@ app.use('/api/venues', venueRoutes);
 app.use('/api/contacts', contactRoutes);
 app.use('/api/users', userRoutes);
 
-// Basic route for testing
+// Test route for jest cause its 1am
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to the API' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+export { app };
