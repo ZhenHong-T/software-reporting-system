@@ -18,4 +18,22 @@ steps:
   - script: |
       npm install
       npm run build
-    displayName: "npm install and build"
+      npm run test:ci
+    displayName: "npm install, build, and test"
+
+  - task: PublishTestResults@2
+    displayName: "Publish test results"
+    inputs:
+      testResultsFormat: "JUnit"
+      testResultsFiles: "**/test-report.xml"
+      mergeTestResults: true
+      failTaskOnFailedTests: true
+      failTaskOnMissingResultsFile: true
+
+  - task: PublishCodeCoverageResults@1
+    displayName: "Publish code coverage"
+    inputs:
+      codeCoverageTool: "Cobertura"
+      summaryFileLocation: "$(Build.SourcesDirectory)/coverage/cobertura-coverage.xml"
+      pathToSources: "$(Build.SourcesDirectory)"
+      failIfCoverageEmpty: true
