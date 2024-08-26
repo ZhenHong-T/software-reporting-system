@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import { UserModel } from '../models/index';
+import { UserModel } from '../models/index.js';
 
 export const register = async (req: Request, res: Response) => {
   try {

@@ -4,6 +4,7 @@
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
+    "types": ["jest", "node"],
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -11,7 +12,7 @@
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "allowImportingTsExtensions": true,
-    "moduleResolution": "Bundler",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -19,6 +20,10 @@
     "outDir": "./dist",
     "rootDir": ".",
     "baseUrl": ".",
+    "paths": {
+      "server/*": ["server/*"],
+      "src/*": ["src/*"]
+    },
   },
-  "include": ["src", "server"],
+  "include": ["src", "server", "tests"],
 }
