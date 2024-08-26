@@ -25,12 +25,11 @@ steps:
     displayName: "Publish test results"
     inputs:
       testResultsFormat: "JUnit"
-      testResultsFiles: "**/test-report.xml"
-      mergeTestResults: true
+      testResultsFiles: "**/TEST-*.xml"
       failTaskOnFailedTests: true
       failTaskOnMissingResultsFile: true
 
-  - task: PublishCodeCoverageResults@1
+  - task: PublishCodeCoverageResults@2
     displayName: "Publish code coverage"
     inputs:
       codeCoverageTool: "Cobertura"
