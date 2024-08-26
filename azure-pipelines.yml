@@ -25,7 +25,7 @@ steps:
     displayName: "Publish test results"
     inputs:
       testResultsFormat: "JUnit"
-      testResultsFiles: "test-results/test-report.xml"
+      testResultsFiles: "junit.xml"
       mergeTestResults: true
       failTaskOnFailedTests: true
       failTaskOnMissingResultsFile: true
