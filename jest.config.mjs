@@ -19,7 +19,7 @@ export default {
   reporters: [
     'default',
     ['jest-junit', {
-      outputDirectory: '.',
+      outputDirectory: './test-results',
       outputName: 'test-report.xml',
     }],
   ],
