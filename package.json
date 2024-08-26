@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "build": "tsx && vite build",
+    "build": "tsc && vite build",
     "serve": "vite preview",
     "server": "nodemon --watch 'server/**/*.ts' --exec 'tsx' server/index.ts",
     "dev": "concurrently \"npm run server\" \"npm run start\""
