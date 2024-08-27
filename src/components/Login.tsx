@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/auth.context";
 
 const Login: React.FC = () => {
@@ -67,6 +67,9 @@ const Login: React.FC = () => {
               Login
             </Button>
           </Form>
+          <p className="mt-3">
+            Don't have an account? <Link to="/register">Register here</Link>
+          </p>
         </Col>
       </Row>
     </Container>
