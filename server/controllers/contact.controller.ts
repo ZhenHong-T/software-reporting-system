@@ -56,15 +56,35 @@ export const getContactById = async (req: Request, res: Response) => {
 
 export const updateContact = async (req: Request, res: Response) => {
   try {
-    const updatedContact = await ContactModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updatedContact) {
+    const { id } = req.params;
+    const { firstName, lastName, email, phone } = req.body;
+
+    if (!firstName && !lastName && !email && !phone) {
+      return res.status(400).json({ message: 'No update fields provided' });
+    }
+
+    const contact = await ContactModel.findById(id);
+    if (!contact) {
       return res.status(404).json({ message: 'Contact not found' });
     }
-    res.json(updatedContact);
+
+    if (firstName) contact.firstName = firstName;
+    if (lastName) contact.lastName = lastName;
+    if (email) contact.email = email;
+    if (phone) contact.phone = phone;
+
+    await contact.save();
+
+    return res.status(200).json({
+      message: 'Contact updated successfully',
+      contact
+    });
   } catch (error) {
-    res.status(400).json({ message: 'Error updating contact', error });
+    console.error('Error in updateContact:', error);
+    return res.status(400).json({ message: 'Error updating contact', error: error});
   }
 };
+
 
 export const deleteContact = async (req: Request, res: Response) => {
   try {

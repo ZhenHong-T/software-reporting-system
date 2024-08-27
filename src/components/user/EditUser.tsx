@@ -38,6 +38,7 @@ const EditUser: React.FC<EditUserProps> = ({ user, onUserEdited }) => {
             required
           />
         </Form.Group>
+
         <Form.Group className="mb-3">
           <Form.Label>Role</Form.Label>
           <Form.Control
@@ -53,6 +54,7 @@ const EditUser: React.FC<EditUserProps> = ({ user, onUserEdited }) => {
             <option value="staff">Staff</option>
           </Form.Control>
         </Form.Group>
+
         <Button type="submit">Update User</Button>
       </Form>
     </Container>

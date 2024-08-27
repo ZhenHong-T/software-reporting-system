@@ -6,7 +6,6 @@ import { usePermissions } from "../../util/usePermissions";
 import { useApi } from "../../util/apiUtil";
 import SearchBar from "../SearchBar";
 import ItemListAndAdd from "../ItemListAndAdd";
-import EditVenue from "./EditVenue";
 
 const VenueList: React.FC = () => {
   const [venues, setVenues] = useState<Venue[]>([]);
@@ -191,18 +190,6 @@ const VenueList: React.FC = () => {
             <div>
               {hasPermission("MANAGE_VENUES") && (
                 <Button
-                  variant="info"
-                  className="me-2"
-                  onClick={() => {
-                    setSelectedVenue(venue);
-                    setShowEditModal(true);
-                  }}
-                >
-                  Edit
-                </Button>
-              )}
-              {hasPermission("MANAGE_VENUES") && (
-                <Button
                   variant="danger"
                   onClick={() => handleDeleteVenue(venue._id)}
                 >
@@ -229,17 +216,6 @@ const VenueList: React.FC = () => {
         </Modal.Header>
         <Modal.Body>
           <AddVenue onVenueAdded={handleAddVenue} />
-        </Modal.Body>
-      </Modal>
-
-      <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Venue</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {selectedVenue && (
-            <EditVenue venue={selectedVenue} onVenueEdited={handleEditVenue} />
-          )}
         </Modal.Body>
       </Modal>
 
