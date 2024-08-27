@@ -17,6 +17,7 @@ app.use(cors({
   origin: 'http://localhost:5173',
   credentials: true
 }));
+
 app.use(express.json());
 
 app.use(session({
@@ -29,13 +30,6 @@ app.use(session({
   }
 }));
 
-if (require.main === module) {
-  mongoose.connect(process.env.MONGODB_URI as string)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((error) => console.error('MongoDB connection error:', error));
-
-}
-
 // Use auth routes
 app.use('/api/auth', authRoutes);
 app.use('/api/venues', venueRoutes);
@@ -47,10 +41,25 @@ app.get('/', (req, res) => {
   res.json({ message: 'Welcome to the API' });
 });
 
-if (require.main === module) {
+async function connectToDatabase() {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI as string);
+    console.log('Connected to MongoDB');
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+  }
+}
+
+async function startServer() {
+  await connectToDatabase();
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
 }
 
-export { app };
+// Check if this file is being run directly
+if (import.meta.url === `file://${process.argv[1]}`) {
+  startServer();
+}
+
+export { app, startServer, connectToDatabase };

@@ -1,17 +1,15 @@
 import request from 'supertest';
-import { app } from '../../server/index.js';
+import { app, connectToDatabase } from '../../server/index';
 import mongoose from 'mongoose';
 
 describe('Server Tests', () => {
-  /*beforeAll(async () => {
-    await mongoose.connect(process.env.TEST_MONGODB_URI as string);
+  beforeAll(async () => {
+    await connectToDatabase();
   });
 
   afterAll(async () => {
-    // close db after all tests 
     await mongoose.connection.close();
   });
-  */
 
   it('GET / should return 200 OK and welcome message', async () => {
     const response = await request(app).get('/');
@@ -23,5 +21,4 @@ describe('Server Tests', () => {
     const response = await request(app).get('/nonexistent');
     expect(response.status).toBe(404);
   });
-
 });
