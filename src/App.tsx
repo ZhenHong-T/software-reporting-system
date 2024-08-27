@@ -8,7 +8,6 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthProvider, useAuth } from "./context/auth.context";
 import Login from "./components/Login";
-import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
 import VenueList from "./components/venue/VenueList";
 import ContactList from "./components/contact/ContactList";
@@ -55,7 +54,6 @@ function AppContent() {
       <AppNavbar />
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
         <Route
           path="/dashboard"
           element={
