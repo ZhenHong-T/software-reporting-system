@@ -1,64 +1,71 @@
 import React, { useState, useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
-import { User } from "../../types/types";
+import { Venue } from "../../types/types";
 
-interface EditUserProps {
-  user: User;
-  onUserEdited: (updatedUser: Partial<User>) => void;
+interface EditVenueProps {
+  venue: Venue;
+  onVenueEdited: (updatedVenue: Partial<Venue>) => void;
 }
 
-const EditUser: React.FC<EditUserProps> = ({ user, onUserEdited }) => {
-  const [username, setUsername] = useState(user.username);
-  const [role, setRole] = useState(user.role);
+const EditVenue: React.FC<EditVenueProps> = ({ venue, onVenueEdited }) => {
+  const [name, setName] = useState(venue.name);
+  const [address, setAddress] = useState(venue.address);
+  const [contacts, setContacts] = useState(venue.contacts.join(', '));
 
   useEffect(() => {
-    setUsername(user.username);
-    setRole(user.role);
-  }, [user]);
+    setName(venue.name);
+    setAddress(venue.address);
+    setContacts(venue.contacts.join(', '));
+  }, [venue]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onUserEdited({
-      _id: user._id,
-      username,
-      role,
+  const handleSave = () => {
+    onVenueEdited({
+      name,
+      address,
+      contacts: contacts.split(',').map(contact => contact.trim())
     });
   };
 
   return (
     <Container>
-      <h2>Edit User</h2>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label>Username</Form.Label>
+      <h2>Edit Venue</h2>
+      <Form>
+        <Form.Group controlId="venueName">
+          <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
+            placeholder="Enter venue name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </Form.Group>
 
-        <Form.Group className="mb-3">
-          <Form.Label>Role</Form.Label>
+        <Form.Group controlId="venueAddress">
+          <Form.Label>Address</Form.Label>
           <Form.Control
-            as="select"
-            value={role}
-            onChange={(e) =>
-              setRole(e.target.value as "admin" | "manager" | "staff")
-            }
-            required
-          >
-            <option value="admin">Admin</option>
-            <option value="manager">Manager</option>
-            <option value="staff">Staff</option>
-          </Form.Control>
+            type="text"
+            placeholder="Enter address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
         </Form.Group>
 
-        <Button type="submit">Update User</Button>
+        <Form.Group controlId="venueContacts">
+          <Form.Label>Contacts</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter contacts (comma-separated)"
+            value={contacts}
+            onChange={(e) => setContacts(e.target.value)}
+          />
+        </Form.Group>
+
+        <Button variant="primary" onClick={handleSave}>
+          Save Changes
+        </Button>
       </Form>
     </Container>
   );
 };
 
-export default EditUser;
+export default EditVenue;
