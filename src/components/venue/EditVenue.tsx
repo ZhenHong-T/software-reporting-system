@@ -25,7 +25,6 @@ const EditVenue: React.FC<EditVenueProps> = ({ venue, onVenueEdited }) => {
 
   return (
     <Container>
-      <h2>Edit Venue</h2>
       <Form>
         <Form.Group controlId="venueName">
           <Form.Label>Name</Form.Label>
