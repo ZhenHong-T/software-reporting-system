@@ -6,6 +6,7 @@ import { checkPermission } from '../middleware/authMiddleware';
 const router = express.Router();
 
 router.get('/', userController.getAllUsers);
+router.get('/me', userController.getMyUser);
 router.get('/:id/venues', userController.getUserVenues);
 router.post('/', checkPermission('MANAGE_USERS'), authController.register);
 router.get('/:id', userController.getUserById);
