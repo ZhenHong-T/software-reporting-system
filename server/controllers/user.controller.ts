@@ -14,6 +14,27 @@ export const getAllUsers = async (req: express.Request, res: express.Response) =
     }
 };
 
+export const getMyUser = async (req: express.Request, res: express.Response) => {
+    try {
+        const { userId } = req.session;
+
+        if (!userId) {
+            return res.status(401).json({ message: 'Not logged in' });
+        }
+
+        const user = await UserModel.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        return res.status(200).json(user);
+    } catch (error) {
+        console.log(error);
+        return res.sendStatus(400);
+    }
+};
+
 export const deleteUser = async (req: express.Request, res: express.Response) => {
     try {
         const { id } = req.params;
