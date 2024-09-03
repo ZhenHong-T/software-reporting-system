@@ -10,19 +10,16 @@ interface EditVenueProps {
 const EditVenue: React.FC<EditVenueProps> = ({ venue, onVenueEdited }) => {
   const [name, setName] = useState(venue.name);
   const [address, setAddress] = useState(venue.address);
-  const [contacts, setContacts] = useState(venue.contacts.join(', '));
 
   useEffect(() => {
     setName(venue.name);
     setAddress(venue.address);
-    setContacts(venue.contacts.join(', '));
   }, [venue]);
 
   const handleSave = () => {
     onVenueEdited({
       name,
-      address,
-      contacts: contacts.split(',').map(contact => contact.trim())
+      address
     });
   };
 
@@ -47,16 +44,6 @@ const EditVenue: React.FC<EditVenueProps> = ({ venue, onVenueEdited }) => {
             placeholder="Enter address"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group controlId="venueContacts">
-          <Form.Label>Contacts</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter contacts (comma-separated)"
-            value={contacts}
-            onChange={(e) => setContacts(e.target.value)}
           />
         </Form.Group>
 
