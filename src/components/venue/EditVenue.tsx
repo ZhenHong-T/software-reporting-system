@@ -18,13 +18,14 @@ const EditVenue: React.FC<EditVenueProps> = ({ venue, onVenueEdited }) => {
     setAddress(venue.address);
   }, [venue]);
 
-  const handleSave = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     onVenueEdited({
+      _id: venue._id,
       name,
-      address
+      address,
     });
   };
-
   return (
     <Container>
       <Form>
@@ -48,7 +49,7 @@ const EditVenue: React.FC<EditVenueProps> = ({ venue, onVenueEdited }) => {
           />
         </Form.Group>
 
-        <Button variant="primary" onClick={handleSave}>
+        <Button variant="primary" onClick={handleSubmit}>
           Save Changes
         </Button>
       </Form>
