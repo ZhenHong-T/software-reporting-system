@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { Venue } from "../../types/types";
 
-//something broken idk why, need fix soon
-
 interface EditVenueProps {
   venue: Venue;
   onVenueEdited: (updatedVenue: Partial<Venue>) => void;
