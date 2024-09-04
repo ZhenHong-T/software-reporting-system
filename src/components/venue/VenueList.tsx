@@ -187,7 +187,7 @@ const VenueList: React.FC = () => {
               <h3>{venue.name}</h3>
               <p>Address: {venue.address}</p>
               <Button onClick={() => handleShowContacts(venue)}>
-                Manage Venues
+                Manage Contacts
               </Button>
             </div>
             <div>
