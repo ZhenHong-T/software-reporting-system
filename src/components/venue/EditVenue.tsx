@@ -24,32 +24,31 @@ const EditVenue: React.FC<EditVenueProps> = ({ venue, onVenueEdited }) => {
       address,
     });
   };
+
   return (
     <Container>
-      <Form>
-        <Form.Group controlId="venueName">
-          <Form.Label>Name</Form.Label>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="venueName">
+          <Form.Label>Venue Name</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter venue name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
           />
         </Form.Group>
 
-        <Form.Group controlId="venueAddress">
+        <Form.Group className="mb-3" controlId="venueAddress">
           <Form.Label>Address</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter address"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
+            required
           />
         </Form.Group>
 
-        <Button variant="primary" onClick={handleSubmit}>
-          Save Changes
-        </Button>
+        <Button type="submit">Save Changes</Button>
       </Form>
     </Container>
   );

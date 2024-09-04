@@ -194,7 +194,8 @@ const VenueList: React.FC = () => {
               {hasPermission("MANAGE_VENUES") && (
                 <>
                   <Button
-                    variant="primary"
+                variant="info"
+                className="me-2"
                     onClick={() => handleShowEditModal(venue)}
                   >
                     Edit
