@@ -18,7 +18,6 @@ const AddVenue: React.FC<AddVenueProps> = ({ onVenueAdded }) => {
 
   return (
     <Container>
-      <h2>Add New Venue</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Name</Form.Label>

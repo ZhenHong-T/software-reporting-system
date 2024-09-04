@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Container, ListGroup, Button, Modal } from "react-bootstrap";
 import { Venue, Contact } from "../../types/types";
 import AddVenue from "./AddVenue";
+import EditVenue from "./EditVenue";
 import { usePermissions } from "../../util/usePermissions";
 import { useApi } from "../../util/apiUtil";
 import SearchBar from "../SearchBar";
@@ -35,10 +36,7 @@ const VenueList: React.FC = () => {
     }
   };
 
-  const handleAddVenue = async (newVenue: {
-    name: string;
-    address: string;
-  }) => {
+  const handleAddVenue = async (newVenue: { name: string; address: string }) => {
     try {
       const response = await fetchWithAuth("/api/venues", {
         method: "POST",
@@ -161,6 +159,11 @@ const VenueList: React.FC = () => {
     setFilteredVenues(filteredItems);
   }, []);
 
+  const handleShowEditModal = (venue: Venue) => {
+    setSelectedVenue(venue);
+    setShowEditModal(true);
+  };
+
   return (
     <Container className="mt-4">
       <h2>Venues</h2>
@@ -184,17 +187,26 @@ const VenueList: React.FC = () => {
               <h3>{venue.name}</h3>
               <p>Address: {venue.address}</p>
               <Button onClick={() => handleShowContacts(venue)}>
-                Manage Venues
+                Manage Contacts
               </Button>
             </div>
             <div>
               {hasPermission("MANAGE_VENUES") && (
-                <Button
-                  variant="danger"
-                  onClick={() => handleDeleteVenue(venue._id)}
-                >
-                  Delete
-                </Button>
+                <>
+                  <Button
+                variant="info"
+                className="me-2"
+                    onClick={() => handleShowEditModal(venue)}
+                  >
+                    Edit
+                  </Button>{" "}
+                  <Button
+                    variant="danger"
+                    onClick={() => handleDeleteVenue(venue._id)}
+                  >
+                    Delete
+                  </Button>
+                </>
               )}
             </div>
           </ListGroup.Item>
@@ -216,6 +228,17 @@ const VenueList: React.FC = () => {
         </Modal.Header>
         <Modal.Body>
           <AddVenue onVenueAdded={handleAddVenue} />
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Venue</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedVenue && (
+            <EditVenue venue={selectedVenue} onVenueEdited={handleEditVenue} />
+          )}
         </Modal.Body>
       </Modal>
 
