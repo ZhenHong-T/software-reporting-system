@@ -12,6 +12,7 @@ import Dashboard from "./components/Dashboard";
 import VenueList from "./components/venue/VenueList";
 import ContactList from "./components/contact/ContactList";
 import UserList from "./components/user/UserList";
+import Register from "./components/Register";
 import AppNavbar from "./components/Navbar";
 import { usePermissions, PermissionType } from "./util/usePermissions";
 
@@ -85,6 +86,10 @@ function AppContent() {
               <UserList />
             </ProtectedRoute>
           }
+        />
+        <Route path="/register" 
+        element={
+        <Register />} 
         />
         <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
