@@ -30,6 +30,7 @@ app.use(session({
   }
 }));
 
+
 // Use auth routes
 app.use('/api/auth', authRoutes);
 app.use('/api/venues', venueRoutes);
@@ -41,8 +42,10 @@ app.get('/', (req, res) => {
   res.json({ message: 'Welcome to the API' });
 });
 
+
 async function connectToDatabase() {
   try {
+    console.log('Connecting to database');
     await mongoose.connect(process.env.MONGODB_URI as string);
     console.log('Connected to MongoDB');
   } catch (error) {
@@ -58,8 +61,6 @@ async function startServer() {
 }
 
 // Check if this file is being run directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  startServer();
-}
+startServer();
 
 export { app, startServer, connectToDatabase };
