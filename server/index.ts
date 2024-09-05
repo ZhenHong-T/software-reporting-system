@@ -7,7 +7,10 @@ import authRoutes from './routes/auth.route';
 import venueRoutes from './routes/venue.route';
 import contactRoutes from './routes/contact.route';
 import userRoutes from './routes/user.route';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
+const __filename = fileURLToPath(import.meta.url);
 dotenv.config();
 
 const app = express();
@@ -61,6 +64,8 @@ async function startServer() {
 }
 
 // Check if this file is being run directly
-startServer();
+if (path.resolve(__filename) === path.resolve(process.argv[1])) {
+  startServer();
+}
 
 export { app, startServer, connectToDatabase };
